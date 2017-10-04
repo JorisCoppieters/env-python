@@ -24,11 +24,6 @@
                     "host": 8888,
                     "description": "Jupyter Notebook",
                     "container": 8888
-                },
-                {
-                    "host": 5000,
-                    "description": "Flask",
-                    "container": 5000
                 }
             ]
         },
