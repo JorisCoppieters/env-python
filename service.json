@@ -1,63 +1,23 @@
 {
+    "$schema": "https://raw.githubusercontent.com/JorisCoppieters/servicerator/master/schemas/servicerator-schema-v3.4.json",
     "docker": {
         "container": {
-            "volumes": [
-                {
-                    "container": "/root/corpus",
-                    "host": "./corpus"
-                },
-                {
-                    "container": "/root/models",
-                    "host": "./models"
-                },
-                {
-                    "container": "/root/scripts",
-                    "host": "./scripts"
-                },
-                {
-                    "container": "/root/downloads",
-                    "host": "./downloads"
-                }
-            ],
             "ports": [
                 {
-                    "host": 8888,
+                    "container": 8888,
                     "description": "Jupyter Notebook",
-                    "container": 8888
+                    "host": 8888
                 }
             ]
         },
         "image": {
             "name": "env-python",
             "tag_with_date": true,
-            "version": "1.0.2"
+            "version": "1.0.3"
         },
         "username": "joris"
     },
-    "service": {
-        "filesystem": [
-            {
-                "on_setup": true,
-                "path": "corpus",
-                "type": "folder"
-            },
-            {
-                "on_setup": true,
-                "path": "models",
-                "type": "folder"
-            },
-            {
-                "on_setup": true,
-                "path": "scripts",
-                "type": "folder"
-            },
-            {
-                "on_setup": true,
-                "path": "downloads",
-                "type": "folder"
-            }
-        ]
-    },
+    "schema_version": 3.4,
     "version_control": {
         "root_folder": "$BASE_DIR",
         "type": "git"

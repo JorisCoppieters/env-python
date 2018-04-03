@@ -13,8 +13,6 @@
 # ----------------------
 
     ENV BASE_DIR "/root"
-    ENV DOWNLOADS_DIR "$BASE_DIR/downloads"
-    ENV LIBRARIES_DIR "$BASE_DIR/libraries"
 
     EXPOSE 8888
 
@@ -29,56 +27,58 @@
 
     # Installing dependencies
     RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
-        "git" \
-        "nano" \
-        "libav-tools" \
         "ffmpeg" \
+        "git" \
+        "htop" \
+        "libav-tools" \
+        "nano" \
         "python" \
         "python-dev" \
         "python-numpy" \
-        "python-pip" \
-        "python-yaml" \
-        "python-tk" \
         "python-opencv" \
-        "python-sklearn"
+        "python-pip" \
+        "python-sklearn" \
+        "python-tk" \
+        "python-yaml"
 
     RUN pip install pip --upgrade && pip install \
         "Cython>=0.19.2" \
+        "Pillow>=2.3.0" \
+        "awscli" \
+        "boto3" \
+        "dlow" \
         "eyed3" \
         "flask" \
         "flask_cors" \
         "h5py>=2.2.0" \
         "hmmlearn" \
+        "httplib2" \
+        "hyperopt" \
         "ipython<=5.0.0" \
         "jupyter" \
         "leveldb>=0.191" \
         "matplotlib>=1.3.1" \
         "networkx>=1.8.1" \
+        "nltk" \
         "nose>=1.3.0" \
         "numpy>=1.7.1" \
         "pandas>=0.12.0" \
-        "Pillow>=2.3.0" \
         "protobuf>=2.5.0" \
         "psutil" \
         "pydub" \
         "python-dateutil>=1.4,<2" \
         "python-gflags>=2.0" \
         "pyyaml>=3.10" \
+        "requests" \
         "scikit-image>=0.9.3" \
+        "scikit-learn>=0.19" \
         "scipy>=0.13.2" \
         "simplejson" \
         "six>=1.1.0" \
         "sklearn"
 
-    # Creating folders
-    RUN mkdir -p "$DOWNLOADS_DIR"
-    RUN mkdir -p "$LIBRARIES_DIR"
-
-    # Downloading PyAudioAnalysis
-    RUN git clone https://github.com/tyiannak/pyAudioAnalysis.git "$LIBRARIES_DIR/pyAudioAnalysis"
-
-    # Adding PyAudioAnalysis to PYTHON_PATH
-    RUN export PYTHON_PATH=$PYTHON_PATH:"$LIBRARIES_DIR/pyAudioAnalysis"
+    RUN python -c "import nltk; nltk.download('punkt')"
+    RUN python -c "import nltk; nltk.download('stopwords')"
 
     # Applying fix to jupyter notebooks so they work with Docker
     RUN mkdir -p "/root/.jupyter/" && chmod 700 "/root/.jupyter/"
